@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library of Michigan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#182530;
+    --ink-soft:#41525c;
+    --lake:#2f7089;
+    --lake-deep:#1f5266;
+    --brass:#a97a34;
+    --brass-bright:#c99a4f;
+    --paper:#f5efe1;
+    --limestone:#e7ddc4;
+    --limestone-line:#cabf9f;
+    --hairline: rgba(24,37,48,0.16);
+    --max: 1120px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.08;
+    margin:0;
+    color:var(--ink);
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--lake);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- disclaimer banner ---------- */
+  .disclaimer-banner{
+    background:#6f3420;
+    color:var(--paper);
+    border-bottom:1px solid rgba(245,239,225,0.25);
+  }
+  .disclaimer-banner .wrap{
+    padding:9px 32px;
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    font-size:0.82rem;
+    line-height:1.4;
+  }
+  .disclaimer-banner strong{
+    font-weight:600;
+    flex-shrink:0;
+  }
+  .disclaimer-banner span{
+    color:#ecd9cd;
+  }
+
+  /* ---------- header ---------- */
+  header.site-header{
+    background:var(--ink);
+    color:var(--paper);
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  .header-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    padding:16px 32px;
+    max-width:var(--max);
+    margin:0 auto;
+    flex-wrap:wrap;
+  }
+  .brand{
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.2rem;
+    letter-spacing:0.005em;
+  }
+  .brand .eyebrow{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:0.68rem;
+    font-weight:500;
+    letter-spacing:0.09em;
+    color:#a9b6b9;
+    text-transform:uppercase;
+  }
+  nav.primary-nav{
+    display:flex;
+    gap:28px;
+    flex-wrap:wrap;
+  }
+  nav.primary-nav a{
+    font-size:0.92rem;
+    color:#cfd9dc;
+    padding:4px 0;
+    border-bottom:1px solid transparent;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  nav.primary-nav a:hover{
+    color:var(--paper);
+    border-bottom-color:var(--brass-bright);
+  }
+  .card-btn{
+    background:var(--brass);
+    color:var(--ink);
+    font-size:0.88rem;
+    font-weight:600;
+    padding:9px 18px;
+    border-radius:3px;
+    white-space:nowrap;
+    transition:background .15s ease;
+  }
+  .card-btn:hover{ background:var(--brass-bright); }
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:var(--paper);
+    padding:76px 0 64px;
+    border-bottom:1px solid var(--hairline);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem, 4vw, 3.35rem);
+    max-width:12ch;
+  }
+  .hero p.lede{
+    margin:24px 0 0;
+    max-width:46ch;
+    color:var(--ink-soft);
+    font-size:1.08rem;
+  }
+  .hero-ctas{
+    display:flex;
+    gap:14px;
+    margin-top:32px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    padding:12px 22px;
+    border-radius:3px;
+    font-size:0.95rem;
+    font-weight:600;
+    transition:transform .15s ease, background .15s ease, color .15s ease;
+  }
+  .btn-primary{ background:var(--lake); color:var(--paper); }
+  .btn-primary:hover{ background:var(--lake-deep); }
+  .btn-ghost{ border:1px solid var(--ink); color:var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--paper); }
+
+  .catalog-art{ width:100%; max-width:420px; margin:0 auto; }
+  .catalog-art .cabinet{ fill:none; stroke:var(--ink); stroke-width:2.5; }
+  .catalog-art .drawer{ fill:var(--paper); stroke:var(--ink); stroke-width:1.4; }
+  .catalog-art .pull{ fill:var(--brass); }
+  .catalog-art .drawer-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    text-anchor:middle;
+    fill:var(--ink-soft);
+    letter-spacing:0.02em;
+  }
+  .catalog-art .foot{ fill:var(--ink); }
+
+  @media (prefers-reduced-motion: no-preference){
+    .catalog-art .drawer, .catalog-art .pull{
+      opacity:0;
+      animation:riseIn .55s ease forwards;
+    }
+  }
+  @keyframes riseIn{
+    from{ opacity:0; transform:translateY(6px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ---------- facts strip ---------- */
+  .facts{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .facts-row{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+  }
+  .fact{
+    padding:30px 22px;
+    border-left:1px solid rgba(245,239,225,0.16);
+    text-align:left;
+  }
+  .fact:first-child{ border-left:none; }
+  .fact .num{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.7rem;
+    color:var(--brass-bright);
+    display:block;
+  }
+  .fact .label{
+    font-size:0.85rem;
+    color:#c3ccce;
+    margin-top:4px;
+    display:block;
+    max-width:16ch;
+  }
+
+  /* ---------- section headings ---------- */
+  .section-head{
+    max-width:56ch;
+    margin-bottom:44px;
+  }
+  .section-head h2{
+    font-size:clamp(1.7rem, 2.6vw, 2.2rem);
+  }
+  .section-head p{
+    color:var(--ink-soft);
+    margin-top:14px;
+    font-size:1.03rem;
+  }
+
+  /* ---------- collections ---------- */
+  .collections{
+    background:var(--limestone);
+    padding:88px 0;
+    border-bottom:1px solid var(--limestone-line);
+  }
+  .feature-row{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+    margin-bottom:48px;
+  }
+  .feature{
+    background:var(--paper);
+    border:1px solid var(--limestone-line);
+    border-radius:4px;
+    padding:22px 24px;
+  }
+  .feature h3{
+    font-size:1.02rem;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .feature p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:0.93rem;
+  }
+
+  .shelf{
+    border-top:1px solid var(--limestone-line);
+  }
+  .shelf-row{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:32px;
+    padding:26px 0;
+    border-bottom:1px solid var(--limestone-line);
+    align-items:baseline;
+  }
+  .shelf-code{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.95rem;
+    color:var(--brass);
+    font-weight:500;
+    letter-spacing:0.02em;
+    padding-top:4px;
+  }
+  .shelf-body h3{
+    font-size:1.28rem;
+    font-weight:600;
+  }
+  .shelf-body p{
+    margin:8px 0 0;
+    color:var(--ink-soft);
+    max-width:64ch;
+  }
+
+  /* ---------- visit ---------- */
+  .visit{
+    background:var(--paper);
+    padding:88px 0;
+  }
+  .visit-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+  }
+  .visit-block h3{
+    font-size:1.05rem;
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  .visit-block p, .visit-block address{
+    color:var(--ink-soft);
+    font-style:normal;
+    margin:0 0 6px;
+  }
+  .hours-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:6px;
+  }
+  .hours-table td{
+    padding:8px 0;
+    border-top:1px solid var(--hairline);
+    font-size:0.97rem;
+  }
+  .hours-table tr:first-child td{ border-top:none; }
+  .hours-table td:first-child{ color:var(--ink-soft); }
+  .hours-table td:last-child{ text-align:right; font-weight:500; }
+  .note{
+    margin-top:26px;
+    padding-top:20px;
+    border-top:1px solid var(--hairline);
+    font-size:0.92rem;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--ink);
+    color:#c3ccce;
+    padding:52px 0 28px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:36px;
+    border-bottom:1px solid rgba(245,239,225,0.14);
+  }
+  .footer-grid h4{
+    color:var(--paper);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:0.85rem;
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  .footer-grid a, .footer-grid p{
+    display:block;
+    font-size:0.92rem;
+    color:#b6c0c3;
+    margin-bottom:8px;
+  }
+  .footer-grid a:hover{ color:var(--paper); }
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:22px;
+    font-size:0.82rem;
+    color:#8b979a;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 900px){
+    .feature-row{ grid-template-columns:1fr; }
+    .hero-grid{ grid-template-columns:1fr; }
+    .catalog-art{ max-width:300px; }
+    .facts-row{ grid-template-columns:repeat(2, 1fr); }
+    .fact:nth-child(3){ border-left:none; }
+    .fact{ border-left:1px solid rgba(245,239,225,0.16); }
+    .fact:nth-child(odd){ border-left:none; }
+    .visit-grid{ grid-template-columns:1fr; gap:40px; }
+    .footer-grid{ grid-template-columns:1fr; gap:26px; }
+  }
+  @media (max-width: 600px){
+    .wrap{ padding:0 20px; }
+    .header-row{ padding:14px 20px; }
+    nav.primary-nav{ display:none; }
+    .facts-row{ grid-template-columns:1fr 1fr; }
+    .shelf-row{ grid-template-columns:1fr; gap:6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="disclaimer-banner">
+  <div class="wrap">
+    <strong>Notice:</strong>
+    <span>This is not an official government website. This site is a simulated government interface and does not represent any real government body or authority.</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="header-row">
+    <div class="brand">
+      <span class="eyebrow">State of Michigan</span>
+      Library of Michigan
+    </div>
+    <nav class="primary-nav">
+      <a href="#elibrary">eLibrary</a>
+      <a href="#card">Get a card</a>
+      <a href="#visit">Visit</a>
+      <a href="#about">About</a>
+    </nav>
+    <a class="card-btn" href="#card">Get a library card</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Every state code, one search, one card.</h1>
+        <p class="lede">The Library of Michigan is an independent agency of the executive branch, delivered mainly online. A single library card unlocks the Michigan eLibrary — the Constitution, the compiled laws, the administrative code, and every court and executive record cross-linked into one place.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#card">Get a library card</a>
+          <a class="btn btn-ghost" href="#elibrary">See what's inside eLibrary</a>
+        </div>
+      </div>
+      <div>
+        <svg class="catalog-art" viewBox="0 0 340 520" role="img" aria-label="Illustration of a card catalog cabinet with drawers labeled for each database in the Michigan eLibrary">
+          <rect class="cabinet" x="20" y="20" width="300" height="480" rx="10"/>
+          <rect x="20" y="500" width="300" height="10" rx="2" class="foot"/>
+
+          <rect x="35.0" y="35.0" width="130.0" height="105.0" rx="6" class="drawer"/>
+          <rect x="77.9" y="47.0" width="44.2" height="7" rx="3" class="pull"/>
+          <text x="100.0" y="124.0" class="drawer-label">CONST</text>
+          <rect x="175.0" y="35.0" width="130.0" height="105.0" rx="6" class="drawer"/>
+          <rect x="217.9" y="47.0" width="44.2" height="7" rx="3" class="pull"/>
+          <text x="240.0" y="124.0" class="drawer-label">MCL</text>
+          <rect x="35.0" y="150.0" width="130.0" height="105.0" rx="6" class="drawer"/>
+          <rect x="77.9" y="162.0" width="44.2" height="7" rx="3" class="pull"/>
+          <text x="100.0" y="239.0" class="drawer-label">MAC</text>
+          <rect x="175.0" y="150.0" width="130.0" height="105.0" rx="6" class="drawer"/>
+          <rect x="217.9" y="162.0" width="44.2" height="7" rx="3" class="pull"/>
+          <text x="240.0" y="239.0" class="drawer-label">PA</text>
+          <rect x="35.0" y="265.0" width="130.0" height="105.0" rx="6" class="drawer"/>
+          <rect x="77.9" y="277.0" width="44.2" height="7" rx="3" class="pull"/>
+          <text x="100.0" y="354.0" class="drawer-label">ERO</text>
+          <rect x="175.0" y="265.0" width="130.0" height="105.0" rx="6" class="drawer"/>
+          <rect x="217.9" y="277.0" width="44.2" height="7" rx="3" class="pull"/>
+          <text x="240.0" y="354.0" class="drawer-label">MSC</text>
+          <rect x="35.0" y="380.0" width="130.0" height="105.0" rx="6" class="drawer"/>
+          <rect x="77.9" y="392.0" width="44.2" height="7" rx="3" class="pull"/>
+          <text x="100.0" y="469.0" class="drawer-label">AG</text>
+          <rect x="175.0" y="380.0" width="130.0" height="105.0" rx="6" class="drawer"/>
+          <rect x="217.9" y="392.0" width="44.2" height="7" rx="3" class="pull"/>
+          <text x="240.0" y="469.0" class="drawer-label">+ MORE</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts" aria-label="Library of Michigan by the numbers">
+    <div class="wrap facts-row">
+      <div class="fact">
+        <span class="num">Independent</span>
+        <span class="label">agency of the executive branch</span>
+      </div>
+      <div class="fact">
+        <span class="num">1 official</span>
+        <span class="label">State Librarian, appointed by the Governor and confirmed by the Legislature</span>
+      </div>
+      <div class="fact">
+        <span class="num">1 card</span>
+        <span class="label">unlocks the full Michigan eLibrary</span>
+      </div>
+      <div class="fact">
+        <span class="num">8 databases</span>
+        <span class="label">Constitution to Attorney General opinions, cross-linked</span>
+      </div>
+      <div class="fact">
+        <span class="num">Every version</span>
+        <span class="label">current and superseded text, kept side by side</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="collections" id="elibrary">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Inside the Michigan eLibrary</h2>
+        <p>Eight core databases, kept current and cross-linked, plus whatever else the library decides belongs in one place. The State Librarian has broad discretion to add reports, manuals, and other state publications that would otherwise take a dozen searches to find.</p>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature">
+          <h3>Citations that jump</h3>
+          <p>Every citation inside a document is a link. Click a reference in a Supreme Court opinion and land directly on the statute, section, or order it points to.</p>
+        </div>
+        <div class="feature">
+          <h3>Every version kept</h3>
+          <p>When a statute is amended, the old text doesn't disappear. The current version and every prior version sit side by side, so you can see exactly what changed and when.</p>
+        </div>
+        <div class="feature">
+          <h3>Data tables, downloadable</h3>
+          <p>Each database can be exported as a data table — for a spreadsheet, a research script, an AI upload, or whatever else the work calls for.</p>
+        </div>
+      </div>
+
+      <div class="shelf">
+        <div class="shelf-row">
+          <div class="shelf-code">CONST</div>
+          <div class="shelf-body">
+            <h3>Michigan Constitution</h3>
+            <p>The state's founding text, with every amendment linked to the article and section it changed.</p>
+          </div>
+        </div>
+        <div class="shelf-row">
+          <div class="shelf-code">MCL</div>
+          <div class="shelf-body">
+            <h3>Michigan Compiled Laws</h3>
+            <p>The full body of state statutes, current and as previously enacted, cross-linked to the Public Acts that created them.</p>
+          </div>
+        </div>
+        <div class="shelf-row">
+          <div class="shelf-code">MAC</div>
+          <div class="shelf-body">
+            <h3>Michigan Administrative Code</h3>
+            <p>The rules state agencies operate under, linked back to the statutes that authorize them.</p>
+          </div>
+        </div>
+        <div class="shelf-row">
+          <div class="shelf-code">PA</div>
+          <div class="shelf-body">
+            <h3>Public Acts</h3>
+            <p>Every act as signed, in the order it became law, linked forward to where it landed in the compiled laws.</p>
+          </div>
+        </div>
+        <div class="shelf-row">
+          <div class="shelf-code">ERO</div>
+          <div class="shelf-body">
+            <h3>Executive Reorganization Orders</h3>
+            <p>The Governor's orders restructuring state government, with a record of what each order moved and when.</p>
+          </div>
+        </div>
+        <div class="shelf-row">
+          <div class="shelf-code">MSC</div>
+          <div class="shelf-body">
+            <h3>Michigan Supreme Court decisions</h3>
+            <p>Opinions with every statute and prior case they cite linked directly to the source.</p>
+          </div>
+        </div>
+        <div class="shelf-row">
+          <div class="shelf-code">AG</div>
+          <div class="shelf-body">
+            <h3>Attorney General opinions</h3>
+            <p>Formal opinions on how state law applies, indexed against the statutes and constitutional provisions they interpret.</p>
+          </div>
+        </div>
+        <div class="shelf-row">
+          <div class="shelf-code">+ MORE</div>
+          <div class="shelf-body">
+            <h3>Other state publications</h3>
+            <p>Reports, manuals, and government documents the library adds at its discretion — the material you'd otherwise have to track down agency by agency.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit" id="card">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Get a library card</h2>
+        <p>A library card is the only requirement for eLibrary access — it's free, and it's what turns a search engine into a research tool.</p>
+      </div>
+      <div class="visit-grid">
+        <div class="visit-block">
+          <h3>What the card unlocks</h3>
+          <p>The Michigan eLibrary is members-only. Once you have a card, every database, every linked citation, every archived version, and every downloadable data table is open to you — no per-document login, no paywall inside the system.</p>
+          <a class="btn btn-primary" href="#" style="margin-top:16px;">Apply for a card</a>
+        </div>
+        <div class="visit-block" id="visit">
+          <h3>How the library operates</h3>
+          <p>The Library of Michigan is an independent agency of the executive branch. It's headed by a State Librarian, appointed by the Governor and confirmed by the Legislature — Michigan's Legislature is unicameral, so a single confirmation vote is all a nomination needs.</p>
+          <p style="margin-top:12px;">Most services are delivered online through the eLibrary. The library also keeps a physical location within the State Capitol Complex in Lansing, for anyone who prefers to do research in person.</p>
+        </div>
+      </div>
+      <div class="note" id="about" style="margin-top:44px;">The Library of Michigan's physical location is within the State Capitol Complex in Lansing, Michigan. eLibrary access requires a library card; the physical location keeps its own posted hours.</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>Library of Michigan</h4>
+        <p>An independent agency of the executive branch, headed by a State Librarian appointed by the Governor and confirmed by the Legislature.</p>
+      </div>
+      <div>
+        <h4>Find your way</h4>
+        <a href="#elibrary">Inside eLibrary</a>
+        <a href="#card">Get a library card</a>
+        <a href="#visit">How the library operates</a>
+      </div>
+      <div>
+        <h4>Get help</h4>
+        <a href="#">Ask a librarian</a>
+        <a href="#">Michigan eLibrary login</a>
+        <a href="#">Report a broken citation link</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Library of Michigan</span>
+      <span>State Capitol Complex, Lansing, Michigan</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
