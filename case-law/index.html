@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Law | Library of Michigan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#182530;--ink-soft:#41525c;--lake:#2f7089;--lake-deep:#1f5266;--brass:#a97a34;--brass-bright:#c99a4f;--paper:#f5efe1;--limestone:#e7ddc4;--line:#cabf9f;--hair:rgba(24,37,48,.16);--max:1120px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;line-height:1.1;margin:0}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--lake);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+
+.disclaimer-banner{background:var(--lake);color:var(--paper);border-bottom:1px solid rgba(245,239,225,.25)}
+.disclaimer-banner .wrap{padding:9px 32px;display:flex;gap:10px;font-size:.82rem;line-height:1.4}
+.disclaimer-banner span{color:#dcecf1}
+
+header.site-header{background:var(--ink);color:var(--paper);position:sticky;top:0;z-index:50}
+.header-row{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 32px;max-width:var(--max);margin:0 auto;flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;gap:1px;font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem}
+.brand .eyebrow{font:500 .68rem 'IBM Plex Sans',sans-serif;letter-spacing:.09em;color:#a9b6b9;text-transform:uppercase}
+nav.primary-nav{display:flex;gap:28px;flex-wrap:wrap}
+nav.primary-nav a{font-size:.92rem;color:#cfd9dc;padding:4px 0;border-bottom:1px solid transparent;transition:.15s}
+nav.primary-nav a:hover,nav.primary-nav a.on{color:var(--paper);border-bottom-color:var(--brass-bright)}
+.card-btn{background:var(--brass);color:var(--ink);font-size:.88rem;font-weight:600;padding:9px 18px;border-radius:3px;white-space:nowrap}
+.card-btn:hover{background:var(--brass-bright)}
+
+.page-head{padding:52px 0 40px;border-bottom:1px solid var(--hair)}
+.page-head h1{font-size:clamp(2rem,3.6vw,2.9rem)}
+.page-head p{margin:14px 0 0;max-width:58ch;color:var(--ink-soft);font-size:1.05rem}
+
+.collections{background:var(--limestone);padding:48px 0 88px;border-bottom:1px solid var(--line);min-height:60vh}
+.search{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:22px 24px;margin-bottom:26px}
+.bar{display:grid;grid-template-columns:2fr 1.2fr 1fr;gap:14px}
+label{display:block;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px}
+input,select{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:3px;background:#fffdf7;color:var(--ink)}
+.meta-line{display:flex;justify-content:space-between;gap:12px;margin-top:14px;font-size:.9rem;color:var(--ink-soft);flex-wrap:wrap}
+.linkbtn{background:none;border:none;padding:0;font:inherit;color:var(--lake-deep);text-decoration:underline;cursor:pointer}
+
+.shelf{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:1fr auto;gap:8px 20px;padding:22px 8px;border-bottom:1px solid var(--line);align-items:center;transition:background .15s}
+.row:hover{background:rgba(245,239,225,.7)}
+.row h3{font-size:1.25rem}
+.cite{font:500 .88rem 'IBM Plex Mono',monospace;color:var(--brass);margin-top:5px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.tag{font:500 .72rem 'IBM Plex Mono',monospace;padding:3px 10px;border-radius:99px;border:1px solid var(--line);background:var(--paper);white-space:nowrap}
+.tag.binding{background:var(--lake);color:#fff;border-color:var(--lake)}
+.tag.persuasive{background:#e9d9ae;border-color:var(--brass-bright)}
+.tag.overruled,.tag.abrogated{background:#7b2d26;color:#fff;border-color:#7b2d26}
+.tag.superseded,.tag.modified{background:#6b5a8a;color:#fff;border-color:#6b5a8a}
+.msg{padding:48px 0;text-align:center;color:var(--ink-soft)}
+
+.back{display:inline-block;margin-bottom:22px;font-size:.92rem;font-weight:600;color:var(--lake-deep)}
+.back:hover{text-decoration:underline}
+.detail{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:36px 40px}
+.detail h1{font-size:clamp(1.8rem,3vw,2.5rem)}
+.detail .cite{font-size:1rem}
+.facts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin:28px 0;padding:20px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.facts-grid dt{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px}
+.facts-grid dd{margin:0;font-weight:500}
+.detail h2{font-size:1.2rem;margin-bottom:14px}
+.standing p{margin:0 0 14px;max-width:72ch}
+.standing p.item{padding-left:20px}
+
+footer{background:var(--ink);color:#c3ccce;padding:52px 0 28px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding-bottom:36px;border-bottom:1px solid rgba(245,239,225,.14)}
+.footer-grid h4{color:var(--paper);font:600 .85rem 'IBM Plex Sans',sans-serif;margin:0 0 14px}
+.footer-grid a,.footer-grid p{display:block;font-size:.92rem;color:#b6c0c3;margin:0 0 8px}
+.footer-grid a:hover{color:var(--paper)}
+.footer-bottom{display:flex;justify-content:space-between;padding-top:22px;font-size:.82rem;color:#8b979a;flex-wrap:wrap;gap:10px}
+
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr;gap:26px}.facts-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.wrap,.disclaimer-banner .wrap{padding-left:20px;padding-right:20px}.header-row{padding:14px 20px}nav.primary-nav{display:none}.bar{grid-template-columns:1fr}.row{grid-template-columns:1fr}.tags{justify-content:flex-start}.detail{padding:24px 20px}}
+</style>
+</head>
+<body>
+
+<div class="disclaimer-banner"><div class="wrap"><strong>Notice:</strong><span>This is not an official government website. This site is a simulated government interface and does not represent any real government body or authority.</span></div></div>
+
+<header class="site-header"><div class="header-row">
+  <a class="brand" href="index.html"><span class="eyebrow">State of Michigan</span>Library of Michigan</a>
+  <nav class="primary-nav">
+    <a href="index.html#elibrary">eLibrary</a>
+    <a href="case-law.html" class="on">Case law</a>
+    <a href="index.html#card">Get a card</a>
+    <a href="index.html#about">About</a>
+  </nav>
+  <a class="card-btn" href="index.html#card">Get a library card</a>
+</div></header>
+
+<section class="page-head"><div class="wrap">
+  <h1>Case law</h1>
+  <p>Search Michigan Supreme Court decisions and Consideration of United Authority rulings. Select a case to read its full standing.</p>
+</div></section>
+
+<section class="collections"><div class="wrap">
+
+  <div id="listView">
+    <div class="search">
+      <div class="bar">
+        <div><label for="q">Search</label><input id="q" type="search" placeholder="Case name, citation, docket, or keyword"></div>
+        <div><label for="t">Type</label>
+          <select id="t"><option value="">All types</option><option value="CAU">Consideration of United Authority</option><option value="Published">Published</option><option value="Unpublished">Unpublished</option></select></div>
+        <div><label for="s">Status</label>
+          <select id="s"><option value="">All statuses</option><option>Binding</option><option>Persuasive</option><option>Overruled</option><option>Abrogated</option><option>Superseded</option><option>Modified</option></select></div>
+      </div>
+      <div class="meta-line"><span id="count" aria-live="polite"></span><button class="linkbtn" id="clr" type="button">Clear filters</button></div>
+    </div>
+    <div class="shelf" id="results"></div>
+  </div>
+
+  <div id="detailView" hidden></div>
+
+</div></section>
+
+<footer><div class="wrap">
+  <div class="footer-grid">
+    <div><h4>Library of Michigan</h4><p>An independent agency of the executive branch, headed by a State Librarian appointed by the Governor and confirmed by the Legislature.</p></div>
+    <div><h4>Find your way</h4><a href="index.html#elibrary">Inside eLibrary</a><a href="case-law.html">Case law</a><a href="index.html#card">Get a library card</a></div>
+    <div><h4>Get help</h4><a href="#">Ask a librarian</a><a href="#">Michigan eLibrary login</a><a href="#">Report a broken citation link</a></div>
+  </div>
+  <div class="footer-bottom"><span>© Library of Michigan</span><span>Flint, Michigan</span></div>
+</div></footer>
+
+<script>
+const CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQkZNhUlXh4R7524tnB9M8U3x6Q-aPjRw_c1UTFefK15Pafzev1-y3Wo2Q2Fe2n2sda7itYdxgUz4qu/pub?gid=0&single=true&output=csv';
+const TYPE_LABEL={CAU:'Consideration of United Authority'};
+let data=[];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const typeLabel=t=>TYPE_LABEL[t.toUpperCase()]||t;
+
+function parseCSV(text){
+  const rows=[];let r=[],f='',q=false;
+  for(let i=0;i<text.length;i++){const c=text[i];
+    if(q){if(c=='"'){if(text[i+1]=='"'){f+='"';i++}else q=false}else f+=c}
+    else if(c=='"')q=true;
+    else if(c==','){r.push(f);f=''}
+    else if(c=='\n'||c=='\r'){if(c=='\r'&&text[i+1]=='\n')i++;r.push(f);f='';if(r.some(x=>x.trim()))rows.push(r);r=[]}
+    else f+=c}
+  r.push(f);if(r.some(x=>x.trim()))rows.push(r);return rows}
+
+// Turn the hard-wrapped PDF text into readable paragraphs
+function paragraphs(s){
+  const lines=s.replace(/\r/g,'').split('\n').map(l=>l.trim()).filter(l=>l&&!/^\d{1,3}$/.test(l));
+  const out=[];
+  lines.forEach(l=>{
+    const prev=out[out.length-1];
+    const startsItem=/^\d+\.\s/.test(l);
+    const prevEnded=prev&&/[.:;]$/.test(prev.text)&&prev.last<80;
+    if(!prev||startsItem||prevEnded){out.push({text:l,last:l.length,item:startsItem})}
+    else{prev.text+=' '+l;prev.last=l.length}
+  });
+  return out}
+
+function load(text){
+  const rows=parseCSV(text);
+  const h=rows[0].map(x=>x.trim().toLowerCase());
+  const get=(r,n)=>(r[h.indexOf(n)]||'').trim();
+  data=rows.slice(1).map(r=>({Name:get(r,'name'),Docket:get(r,'docket'),Citation:get(r,'citation'),Type:get(r,'type'),Status:get(r,'status'),Standing:(r[h.indexOf('standing')]||'')})).filter(d=>d.Name)}
+
+function tags(d){return `<span class="tag">${esc(typeLabel(d.Type))}</span><span class="tag ${esc(d.Status.toLowerCase())}">${esc(d.Status)}</span>`}
+
+function renderList(){
+  const q=$('q').value.trim().toLowerCase(),t=$('t').value,s=$('s').value;
+  const hits=[];
+  data.forEach((d,i)=>{
+    if(t&&d.Type.toUpperCase()!==t.toUpperCase())return;
+    if(s&&d.Status.toLowerCase()!==s.toLowerCase())return;
+    if(q&&![d.Name,d.Citation,d.Docket,typeLabel(d.Type),d.Type,d.Status,d.Standing].join(' ').toLowerCase().includes(q))return;
+    hits.push(i)});
+  $('count').textContent=hits.length+(hits.length==1?' case':' cases');
+  $('results').innerHTML=hits.length?hits.map(i=>{const d=data[i];return `<a class="row" href="#case-${i}"><div><h3>${esc(d.Name)}</h3><div class="cite">${esc(d.Citation)} · ${esc(d.Docket)}</div></div><div class="tags">${tags(d)}</div></a>`}).join(''):'<div class="msg">No cases match your search.</div>'}
+
+function renderDetail(i){
+  const d=data[i];
+  if(!d){location.hash='';return}
+  $('detailView').innerHTML=`<a class="back" href="#">&larr; Back to search results</a>
+  <article class="detail">
+    <h1>${esc(d.Name)}</h1>
+    <div class="cite">${esc(d.Citation)}</div>
+    <dl class="facts-grid">
+      <div><dt>Docket</dt><dd>${esc(d.Docket)}</dd></div>
+      <div><dt>Type</dt><dd>${esc(typeLabel(d.Type))}</dd></div>
+      <div><dt>Status</dt><dd><span class="tags" style="justify-content:flex-start"><span class="tag ${esc(d.Status.toLowerCase())}">${esc(d.Status)}</span></span></dd></div>
+      <div><dt>Citation</dt><dd>${esc(d.Citation)}</dd></div>
+    </dl>
+    <h2>Standing</h2>
+    <div class="standing">${paragraphs(d.Standing).map(p=>`<p class="${p.item?'item':''}">${esc(p.text)}</p>`).join('')}</div>
+  </article>`}
+
+function route(){
+  const m=location.hash.match(/^#case-(\d+)$/);
+  if(m&&data.length){renderDetail(+m[1]);$('listView').hidden=true;$('detailView').hidden=false;window.scrollTo(0,0)}
+  else{$('detailView').hidden=true;$('listView').hidden=false}}
+
+['q','t','s'].forEach(id=>$(id).addEventListener('input',renderList));
+$('clr').onclick=()=>{$('q').value='';$('t').value='';$('s').value='';renderList()};
+window.addEventListener('hashchange',route);
+
+$('results').innerHTML='<div class="msg">Loading cases…</div>';
+fetch(CSV_URL).then(r=>{if(!r.ok)throw 0;return r.text()}).then(t=>{load(t);renderList();route()})
+ .catch(()=>{$('count').textContent='';$('results').innerHTML='<div class="msg">Could not load the case law database. Check your connection and reload the page.</div>'});
+</script>
+</body>
+</html>
