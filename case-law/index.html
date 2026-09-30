@@ -134,6 +134,7 @@ const TYPE_LABEL={CAU:'Consideration of United Authority'};
 let data=[];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const slugify=t=>t.toLowerCase().replace(/\./g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
 const typeLabel=t=>TYPE_LABEL[t.toUpperCase()]||t;
 
 function parseCSV(text){
@@ -163,7 +164,9 @@ function load(text){
   const rows=parseCSV(text);
   const h=rows[0].map(x=>x.trim().toLowerCase());
   const get=(r,n)=>(r[h.indexOf(n)]||'').trim();
-  data=rows.slice(1).map(r=>({Name:get(r,'name'),Docket:get(r,'docket'),Citation:get(r,'citation'),Type:get(r,'type'),Status:get(r,'status'),Standing:(r[h.indexOf('standing')]||'')})).filter(d=>d.Name)}
+  data=rows.slice(1).map(r=>({Name:get(r,'name'),Docket:get(r,'docket'),Citation:get(r,'citation'),Type:get(r,'type'),Status:get(r,'status'),Standing:(r[h.indexOf('standing')]||'')})).filter(d=>d.Name);
+  const seen={};
+  data.forEach(d=>{let b=slugify(d.Citation)||slugify(d.Name);seen[b]=(seen[b]||0)+1;d.slug=seen[b]>1?b+'-'+seen[b]:b})}
 
 function tags(d){return `<span class="tag">${esc(typeLabel(d.Type))}</span><span class="tag ${esc(d.Status.toLowerCase())}">${esc(d.Status)}</span>`}
 
@@ -176,7 +179,7 @@ function renderList(){
     if(q&&![d.Name,d.Citation,d.Docket,typeLabel(d.Type),d.Type,d.Status,d.Standing].join(' ').toLowerCase().includes(q))return;
     hits.push(i)});
   $('count').textContent=hits.length+(hits.length==1?' case':' cases');
-  $('results').innerHTML=hits.length?hits.map(i=>{const d=data[i];return `<a class="row" href="#case-${i}"><div><h3>${esc(d.Name)}</h3><div class="cite">${esc(d.Citation)} · ${esc(d.Docket)}</div></div><div class="tags">${tags(d)}</div></a>`}).join(''):'<div class="msg">No cases match your search.</div>'}
+  $('results').innerHTML=hits.length?hits.map(i=>{const d=data[i];return `<a class="row" href="#${d.slug}"><div><h3>${esc(d.Name)}</h3><div class="cite">${esc(d.Citation)} · ${esc(d.Docket)}</div></div><div class="tags">${tags(d)}</div></a>`}).join(''):'<div class="msg">No cases match your search.</div>'}
 
 function renderDetail(i){
   const d=data[i];
@@ -196,8 +199,9 @@ function renderDetail(i){
   </article>`}
 
 function route(){
-  const m=location.hash.match(/^#case-(\d+)$/);
-  if(m&&data.length){renderDetail(+m[1]);$('listView').hidden=true;$('detailView').hidden=false;window.scrollTo(0,0)}
+  const slug=decodeURIComponent(location.hash.slice(1));
+  const idx=slug?data.findIndex(d=>d.slug===slug):-1;
+  if(idx>-1){renderDetail(idx);$('listView').hidden=true;$('detailView').hidden=false;window.scrollTo(0,0)}
   else{$('detailView').hidden=true;$('listView').hidden=false}}
 
 ['q','t','s'].forEach(id=>$(id).addEventListener('input',renderList));
