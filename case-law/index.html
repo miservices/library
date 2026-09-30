@@ -171,7 +171,7 @@ function load(text){
   const rows=parseCSV(text);
   const h=rows[0].map(x=>x.trim().toLowerCase());
   const get=(r,n)=>(r[h.indexOf(n)]||'').trim();
-  data=rows.slice(1).map(r=>({Name:get(r,'name'),Docket:get(r,'docket'),Citation:get(r,'citation'),Type:get(r,'type'),Status:get(r,'status'),Summary:get(r,'summary'),Standing:(r[h.indexOf('standing')]||''),Author:get(r,'author'),Vote:get(r,'vote'),Notes:get(r,'notes')})).filter(d=>d.Name);
+  data=rows.slice(1).map(r=>({Name:get(r,'name'),Docket:get(r,'docket'),Citation:get(r,'citation'),Type:get(r,'type'),Status:get(r,'status'),Summary:get(r,'summary'),Standing:(r[h.indexOf('standing')]||''),Author:get(r,'author'),Vote:get(r,'vote'),Date:get(r,'date'),Notes:get(r,'notes')})).filter(d=>d.Name);
   const seen={};
   data.forEach(d=>{let b=slugify(d.Citation)||slugify(d.Name);seen[b]=(seen[b]||0)+1;d.slug=seen[b]>1?b+'-'+seen[b]:b})}
 
@@ -189,7 +189,7 @@ function renderList(){
   data.forEach((d,i)=>{
     if(t&&d.Type.toUpperCase()!==t.toUpperCase())return;
     if(s&&d.Status.toLowerCase()!==s.toLowerCase())return;
-    if(q&&![d.Name,d.Citation,d.Docket,typeLabel(d.Type),d.Type,d.Status,d.Summary,d.Standing,d.Author,d.Vote,d.Notes].join(' ').toLowerCase().includes(q))return;
+    if(q&&![d.Name,d.Citation,d.Docket,typeLabel(d.Type),d.Type,d.Status,d.Summary,d.Standing,d.Author,d.Vote,d.Date,d.Notes].join(' ').toLowerCase().includes(q))return;
     hits.push(i)});
   $('count').textContent=hits.length+(hits.length==1?' case':' cases');
   $('results').innerHTML=hits.length?hits.map(i=>{const d=data[i];return `<a class="row" href="#${d.slug}"><div><h3>${hl(d.Name)}</h3><div class="cite">${hl(d.Citation)} · ${hl(d.Docket)}</div>${d.Summary?`<p class="sum">${hl(d.Summary)}</p>`:''}</div><div class="tags">${tags(d)}</div></a>`}).join(''):'<div class="msg">No cases match your search.</div>'}
@@ -207,7 +207,7 @@ function renderDetail(i){
     <dl class="facts-grid">
       ${fact('Docket',d.Docket)}${fact('Type',typeLabel(d.Type))}
       <div><dt>Status</dt><dd><span class="tag ${esc(d.Status.toLowerCase())}">${esc(d.Status)}</span></dd></div>
-      ${fact('Vote',d.Vote)}${fact('Author',d.Author)}
+      ${fact('Date',d.Date)}${fact('Vote',d.Vote)}${fact('Author',d.Author)}
     </dl>
     ${d.Summary?`<h2>Summary</h2><p class="lead">${hl(d.Summary)}</p>`:''}
     <h2>Standing</h2>
